@@ -32,35 +32,13 @@ export default function Index() {
   useFocusEffect(
     useCallback(()=>{
       fetchPosts()
-    getUsername()
     },[])
   )
-
+  
   const handleClick=()=>{
-    navigation.navigate('profile')
+    navigation.navigate('profiles')
   }
 
-  const getUsername = async ()=>{
-      try{
-        const storedname = await AsyncStorage.getItem('usernames');
-        if(storedname){
-          setUsernames(JSON.parse(storedname))
-          console.log(storedname)
-        }
-      }
-      catch(err){
-        console.log(err)
-      }
-    }
-
-  const handleDelUser= async(name:string)=>{
-    const stored =await AsyncStorage.getItem('usernames');
-    if(stored){
-      const usernames = JSON.parse(stored).filter((u:string)=>u !== name)
-      await AsyncStorage.setItem('usernames',JSON.stringify(usernames))
-      setUsernames(usernames)
-    }
-  }
   return (
     <View style={styles.container}>
       <StatusBar barStyle={'light-content'}/>
@@ -108,39 +86,6 @@ export default function Index() {
             scrollEnabled={false}
             />
           </View>
-          {
-            usernames.length>0 && (
-              usernames.map((name,index)=>(
-                <View style={styles.newUserbox} key={index}>
-                <Text style={{
-                  color:'#fff',
-                  fontSize:22,
-                  marginTop:10
-                  }}>
-                  {name}
-                </Text>
-                <TouchableOpacity
-                style={{
-                  backgroundColor:'#9b2226',
-                  width:90,
-                  height:30,
-                  alignItems:'center',
-                  justifyContent:'center',
-                  borderRadius:12,
-                  marginBottom:10
-                }}
-                onPress={()=>handleDelUser(name)}
-                >
-                  <Text
-                  style={{
-                    color:'#fff',
-                    fontSize:18
-                  }}>Delete</Text>
-                </TouchableOpacity>
-              </View>
-              ))
-              )
-          }
        </ScrollView>
        
     </View>

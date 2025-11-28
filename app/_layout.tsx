@@ -1,13 +1,13 @@
-import { NavigationContainer } from "@react-navigation/native";
+
+import UserProvider from "@/src/context/userContext";
 import { Stack } from "expo-router";
-
-
 
 export default function RootLayout() {
   return (
-    <Stack>
-      <Stack.Screen name="index" options={{headerShown:false}}/>
-      <Stack.Screen name="profile" options={{headerShown:false}}/>
-    </Stack>
+    <UserProvider>
+      <Stack screenOptions={{headerShown:false}}>
+        <Stack.Screen name="index" options={{title:'tabs'}}/>
+      </Stack>
+    </UserProvider>
   )
 }
